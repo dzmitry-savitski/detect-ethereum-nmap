@@ -15,17 +15,18 @@ Detects ethereum node and receives the chain id.
 -- PORT     STATE SERVICE
 -- PORT   STATE SERVICE
 -- 443/tcp open  https
--- |_http-eth: ChainID 56 detected
+-- |_http-eth: 76.223.50.140:443 ChainID 56 detected
 --
 -- @xmloutput
--- <elem key="result">ChainID 56 detected</elem>
+-- <elem key="result">76.223.50.140:443 ChainID 56 detected</elem>
 --
 -- Version 0.1
+-- Updated 09/05/2021 - v0.1 - host and port information added to the output
 -- Created 09/03/2021 - v0.1 - created by Dzmitry Savitski <dmitry.savitski@gmail.com>
 --
 
 author = "Dzmitry Savitski"
-license = "Same as Nmap--See https://nmap.org/book/man-legal.html"
+license = "MIT License"
 categories = {"discovery"}
 
 portrule = shortport.http
@@ -36,7 +37,7 @@ action = function( host, port )
   local response = http.post(host, port, '/', {header = {["Content-Type"] = "application/json"}}, nil, data )
   if (response.status==200) and (response['body']:match('{"jsonrpc":"2.0","id":67,"result":"%d+"}')) then
     chain_id = response['body']:match('{"jsonrpc":"2.0","id":67,"result":"(%d+)"}')
-    output.result=("ChainID %s detected"):format(chain_id)
+    output.result=("%s:%s ChainID %s detected"):format(host.ip, port.number, chain_id)
     return output, output.result
   end
 end

@@ -16,10 +16,10 @@ Result:
 ```
 PORT    STATE SERVICE
 443/tcp open  https
-|_http-eth: ChainID 56 detected
+|_http-eth: 76.223.50.140:443 ChainID 56 detected
 ```
 
 Mass scan:
 ```bash
-nmap -v --script http-eth -p 443,8545 -Pn -n -oA results -iL hosts.txt
+nmap --script http-eth -Pn -n --min-rate 1000 --max-retries 0 --min-hostgroup 2048 --host-timeout 10s --script-timeout 10s -p 443,8545 -iL hosts.txt -oA results
 ```
