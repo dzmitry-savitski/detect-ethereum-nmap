@@ -21,5 +21,5 @@ PORT    STATE SERVICE
 
 Mass scan:
 ```bash
-nmap --script http-eth -Pn -n --min-rate 1000 --max-retries 0 --min-hostgroup 2048 --host-timeout 10s --script-timeout 10s -p 443,8545 -iL hosts.txt -oA results
+nmap -v --script http-eth -Pn -n --min-rate 1000 --max-retries 0 --min-hostgroup 2048 --host-timeout 30s --script-timeout 30s --open -p 443,8545 -iL hosts.txt -oA results
 ```
